@@ -15,15 +15,15 @@ export default function DayListItem(props) {
   const formatSpots = (spots) => {
     if (spots === 0) {
       return 'no spots remaining'
-    };
+    }
     if (spots === 1) {
-      return '1 spot remaining'
-    };
+      return `${spots} spot remaining`
+    }
     return `${spots} spots remaining`
   };
-
+  
   return (
-    <li className={dayClass} onClick={() => props.setDay(props.name)}>
+    <li className={dayClass} key={props.id} onClick={() => props.setDay(props.name)}>
       <h2 className='text--regular'>{props.name}</h2>
       <h2 className='text--light'>{formatSpots(props.spots)}</h2>
     </li>
