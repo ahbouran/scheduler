@@ -5,14 +5,14 @@ import Show from './Show';
 import Empty from './Empty';
 
 
+
 export default function Appointment(props) {
-  console.log('props', props)
   return (
 
     <article className='appointment'>
       <Header time={props.time} />
       
-      {props.interview ? <Show name={props.interview.student} interviewers={props.interview.interviewer}/> : <Empty />}
+      {props.interview ? <Show name={props.interview.student} interviewers={props.interview.interviewer.name}/> : <Empty />}
 
 
     </article>
