@@ -18,4 +18,22 @@ export function getAppointmentsForDay(state, day) {
 
 return finalArray
 
-}
+};
+
+
+export function getInterview(state, interview) {
+  if (interview === null) {
+    return null
+  }
+  const interviewerObject = {
+    student: interview.student,
+  }
+
+  let index = interview.interviewer;
+  interviewerObject.interviewer = state.interviewers[index]
+
+
+  return interviewerObject;
+
+};
+
