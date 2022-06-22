@@ -44,6 +44,7 @@
     "@testing-library/react-hooks": "^8.0.1",
     "babel-loader": "^8.0.5",
     "node-sass": "npm:sass@^1.52.3",
+    "prop-types": "^15.8.1",
     "react-test-renderer": "^16.14.0"
   },
   "jest": {
