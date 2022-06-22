@@ -1,4 +1,5 @@
 import React, { Fragment, useState } from "react";
+import useVisualMode from '../../hooks/useVisualMode'
 import "components/Appointment/styles.scss";
 import Header from "./Header";
 import Show from "./Show";
@@ -7,29 +8,6 @@ import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
 import Error from './Error'
-// import useVisualMode from '../hooks/useVisualMode'
-
-const useVisualMode = function (initial) {
-  const [mode, setMode] = useState(initial);
-  const [history, setHistory] = useState([initial]);
-
-  function transition(newMode, replace = false) {
-    if (replace === true) {
-      history.pop();
-    }
-    history.push(newMode);
-
-    return setMode(newMode);
-  }
-  function back() {
-    if (mode === initial) {
-      return setMode(mode);
-    }
-    history.pop();
-    return setMode(history[history.length - 1]);
-  }
-  return { mode, transition, back };
-};
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -42,7 +20,7 @@ const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
 
 export default function Appointment(props) {
-  console.log("props in appointment: ", props);
+
   function save(name, interviewer) {
     const interview = {
       student: name,
@@ -90,7 +68,7 @@ export default function Appointment(props) {
       {mode === EDIT && (
         <Form
           student={props.interview.student}
-          interviewer={props.interview.interviewer.id}
+          interviewer={props.interview.interviewer ? props.interview.interviewer.id : null}
           interviewers={props.interviewers}
           onSave={save}
           onCancel={() => back()}
@@ -99,7 +77,7 @@ export default function Appointment(props) {
       {mode === SHOW && props.interview && (
         <Show
           name={props.interview.student}
-          interviewers={props.interview.interviewer.name}
+          interviewers={props.interview.interviewer}
           onDelete={areYouSure}
           onEdit={edit}
         />
