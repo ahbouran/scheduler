@@ -1,23 +1,19 @@
-# Interview Scheduler
+# Interview Scheduler Project
 
-## Setup
+Scheduler is a single-page application to book, edit and cancel interviews.
 
-Install dependencies with `npm install`.
+## Final Product
 
-## Running Webpack Development Server
+!["Screenshot of Main Page"]()
+!["Screenshot of Edit Form"]()
+!["Screenshot of Delete Form"]()
 
-```sh
-npm start
-```
 
-## Running Jest Test Framework
+## Dependencies
+- axios
+- @testing-library/react-hooks
+- react-test-renderer
 
-```sh
-npm test
-```
+## Getting Started
 
-## Running Storybook Visual Testbed
-
-```sh
-npm run storybook
-```
+* Install all dependencies (using the `npm install` command).
