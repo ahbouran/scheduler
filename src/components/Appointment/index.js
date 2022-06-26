@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import useVisualMode from '../../hooks/useVisualMode'
 import "components/Appointment/styles.scss";
 import Header from "./Header";
@@ -18,6 +18,8 @@ const DELETE = "DELETE";
 const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
+const ERROR_EDIT = "ERROR_";
+
 
 export default function Appointment(props) {
 
@@ -30,21 +32,21 @@ export default function Appointment(props) {
     transition(SAVE);
     props.bookInterview(props.id, interview).then(() => transition(SHOW))
     .catch(() => transition(ERROR_SAVE, true));
-  }
+  };
 
   function areYouSure() {
     transition(CONFIRM);
-  }
+  };
 
   function reallyDelete() {
     transition(DELETE, true)
-    return props.cancelInterview(props.id).then(() => transition(EMPTY))
+    props.cancelInterview(props.id).then(() => transition(EMPTY))
     .catch(() => transition(ERROR_DELETE, true))
-  }
+  };
 
   function edit() {
     transition(EDIT);
-  }
+  };
 
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
@@ -70,8 +72,8 @@ export default function Appointment(props) {
           student={props.interview.student}
           interviewer={props.interview.interviewer ? props.interview.interviewer.id : null}
           interviewers={props.interviewers}
-          onSave={save}
-          onCancel={() => back()}
+          onSave={edit}
+          onCancel={() => transition(SHOW)}
         ></Form>
       )}
       {mode === SHOW && props.interview && (
@@ -86,12 +88,12 @@ export default function Appointment(props) {
       {mode === CREATE && (
         <Form
           interviewers={props.interviewers}
-          onCancel={() => back()}
+          onCancel={() => transition(EMPTY)}
           onSave={save}
         />
       )}
       {mode === ERROR_SAVE && (
-        <Error message='Error saving appointment.' onClose={() => transition(EMPTY)}></Error>
+        <Error message='Error saving appointment.' onClose={() => transition(CREATE)}></Error>
       )}
       {mode === ERROR_DELETE && (
         <Error message='Error deleting appointment.' onClose={() => transition(SHOW)}></Error>
@@ -100,4 +102,3 @@ export default function Appointment(props) {
   );
 }
 
-// {props.interview ? <Show name={props.interview.student} interviewers={props.interview.interviewer.name}/> : <Empty />}
