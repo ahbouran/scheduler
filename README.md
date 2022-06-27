@@ -17,3 +17,4 @@ Scheduler is a single-page application to book, edit and cancel interviews.
 ## Getting Started
 
 * Install all dependencies (using the `npm install` command).
+* Run the scheduler-api server to load all days and appointments. 
